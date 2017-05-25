@@ -1,6 +1,5 @@
 package com.eventos.eventosapp.controller;
 
-
 import com.eventos.eventosapp.ejb.UsuarioFacadeLocal;
 import com.eventos.eventosapp.model.Usuario;
 import java.io.Serializable;
@@ -37,9 +36,10 @@ public class LoginController implements Serializable {
             us = usuarioEJB.iniciarSesion(usuario);
 
             if (us != null) {
-                redireccion = "/inicioAdm.xhtml?faces-redirect=true";
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Inicio de Sesión exitoso"));
                 FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
+                redireccion = "/inicioAdm.xhtml?faces-redirect=true";
+
             } else {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Aviso", "Error!"));
 
@@ -48,6 +48,7 @@ public class LoginController implements Serializable {
         }
 
         return redireccion;
+
     }
 
     public Usuario getUsuario() {

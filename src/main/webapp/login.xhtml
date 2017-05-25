@@ -13,14 +13,14 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
 
 
-        <title>Teneria Inicio de Sesion 
+        <title>Eventos Login
         </title>
 
     </h:head>
     <h:body style="background-image: url(recursos/imagenes/fondo5.jpg);background-repeat: no-repeat;background-size: 100%;">
 
         <h:form id="frmLogin">
-            <p:growl id="growl" sticky="true" showDetail="true" life="300"/>
+            <p:growl id="growl" autoUpdate="false" severity="info, fatal" showSummary="true" showDetail="true"/>
 
             <div class="container" style='padding-top: 150px'>
 
@@ -43,26 +43,22 @@
                                             </f:facet>
                                         </b:inputText>
                                     </div>
+                                    <div class="col-md-2"></div>
+                                    <div class="col-lg-9" style="padding-right: 50px">
+                                        <b:inputSecret value="#{loginController.usuario.clave}" placeholder="Contraseña">
+                                            <f:facet name="prepend">
+                                                <b:iconAwesome name="key" />
+                                            </f:facet>
+                                        </b:inputSecret>
+                                    </div>
+                                    <br/><br/><br/>
+
+                                    <div class="col-md-4"></div>
+                                    <div class="col-md-7">
+                                        <b:commandButton class="form-control" update="growl" style="border-color: black;width: 60%;background-color:#D2D4D6;color: black;border-color: black;" action="#{loginController.iniciarSesion()}" value="Iniciar Sesion"/>
+                                    </div>
                                 </div>
                             </div>
-
-                            <div class="row">
-                                <div class="col-md-2"></div>
-                                <div class="col-lg-9" style="padding-right: 50px">
-                                    <b:inputSecret value="#{loginController.usuario.clave}" placeholder="Contraseña">
-                                        <f:facet name="prepend">
-                                            <b:iconAwesome name="key" />
-                                        </f:facet>
-                                    </b:inputSecret>
-                                </div>
-                                <br/><br/><br/>
-
-                                <div class="col-md-4"></div>
-                                <div class="col-md-7">
-                                    <h:commandButton class="btn" style="border-color: black;width: 60%" action="#{loginController.iniciarSesion()}" value="Iniciar Sesion"/>
-                                </div>
-                            </div>
-
                         </div>
                     </div>
                 </div>
