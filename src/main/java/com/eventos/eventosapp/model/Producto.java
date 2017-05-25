@@ -28,80 +28,66 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "producto")
-@NamedQueries({
-    @NamedQuery(name = "Producto.findAll", query = "SELECT p FROM Producto p")
-    , @NamedQuery(name = "Producto.findByIdProducto", query = "SELECT p FROM Producto p WHERE p.idProducto = :idProducto")
-    , @NamedQuery(name = "Producto.findByNombreProducto", query = "SELECT p FROM Producto p WHERE p.nombreProducto = :nombreProducto")
-    , @NamedQuery(name = "Producto.findByStockActual", query = "SELECT p FROM Producto p WHERE p.stockActual = :stockActual")
-    , @NamedQuery(name = "Producto.findByStockMinimo", query = "SELECT p FROM Producto p WHERE p.stockMinimo = :stockMinimo")
-    , @NamedQuery(name = "Producto.findByDescripcion", query = "SELECT p FROM Producto p WHERE p.descripcion = :descripcion")
-    , @NamedQuery(name = "Producto.findByPrecioCompra", query = "SELECT p FROM Producto p WHERE p.precioCompra = :precioCompra")
-    , @NamedQuery(name = "Producto.findByPrecioVenta", query = "SELECT p FROM Producto p WHERE p.precioVenta = :precioVenta")})
+
 public class Producto implements Serializable {
 
-    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "idProducto")
-    private Integer idProducto;
-    @Size(max = 45)
+    private int idProducto;
+
     @Column(name = "nombre_producto")
-    private String nombreProducto;
+    private String nombre_producto;
+    @JoinColumn(name = "id_tipo", referencedColumnName = "id_tipo")
+    @ManyToOne
+    private TipoProducto tipoProducto;
     @Column(name = "stockActual")
-    private Integer stockActual;
+    private int stockActual;
     @Column(name = "stockMinimo")
-    private Integer stockMinimo;
-    @Size(max = 50)
+    private int stockMinimo;
     @Column(name = "descripcion")
     private String descripcion;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "precio_compra")
-    private BigDecimal precioCompra;
+    private double precioCompra;
     @Column(name = "precio_venta")
-    private BigDecimal precioVenta;
-    @OneToMany(mappedBy = "idProducto")
-    private Collection<Detallefactura> detallefacturaCollection;
-    @JoinColumn(name = "id_tipo", referencedColumnName = "idTipo")
-    @ManyToOne
-    private TipoProducto idTipo;
+    private double precioVenta;
 
-    public Producto() {
-    }
-
-    public Producto(Integer idProducto) {
-        this.idProducto = idProducto;
-    }
-
-    public Integer getIdProducto() {
+    public int getIdProducto() {
         return idProducto;
     }
 
-    public void setIdProducto(Integer idProducto) {
+    public void setIdProducto(int idProducto) {
         this.idProducto = idProducto;
     }
 
-    public String getNombreProducto() {
-        return nombreProducto;
+    public String getNombre_producto() {
+        return nombre_producto;
     }
 
-    public void setNombreProducto(String nombreProducto) {
-        this.nombreProducto = nombreProducto;
+    public void setNombre_producto(String nombre_producto) {
+        this.nombre_producto = nombre_producto;
     }
 
-    public Integer getStockActual() {
+    public TipoProducto getTipoProducto() {
+        return tipoProducto;
+    }
+
+    public void setTipoProducto(TipoProducto tipoProducto) {
+        this.tipoProducto = tipoProducto;
+    }
+
+    public int getStockActual() {
         return stockActual;
     }
 
-    public void setStockActual(Integer stockActual) {
+    public void setStockActual(int stockActual) {
         this.stockActual = stockActual;
     }
 
-    public Integer getStockMinimo() {
+    public int getStockMinimo() {
         return stockMinimo;
     }
 
-    public void setStockMinimo(Integer stockMinimo) {
+    public void setStockMinimo(int stockMinimo) {
         this.stockMinimo = stockMinimo;
     }
 
@@ -113,57 +99,23 @@ public class Producto implements Serializable {
         this.descripcion = descripcion;
     }
 
-    public BigDecimal getPrecioCompra() {
+    public double getPrecioCompra() {
         return precioCompra;
     }
 
-    public void setPrecioCompra(BigDecimal precioCompra) {
+    public void setPrecioCompra(double precioCompra) {
         this.precioCompra = precioCompra;
     }
 
-    public BigDecimal getPrecioVenta() {
+    public double getPrecioVenta() {
         return precioVenta;
     }
 
-    public void setPrecioVenta(BigDecimal precioVenta) {
+    public void setPrecioVenta(double precioVenta) {
         this.precioVenta = precioVenta;
     }
-
-    public Collection<Detallefactura> getDetallefacturaCollection() {
-        return detallefacturaCollection;
-    }
-
-    public void setDetallefacturaCollection(Collection<Detallefactura> detallefacturaCollection) {
-        this.detallefacturaCollection = detallefacturaCollection;
-    }
-
-    public TipoProducto getIdTipo() {
-        return idTipo;
-    }
-
-    public void setIdTipo(TipoProducto idTipo) {
-        this.idTipo = idTipo;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (idProducto != null ? idProducto.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Producto)) {
-            return false;
-        }
-        Producto other = (Producto) object;
-        if ((this.idProducto == null && other.idProducto != null) || (this.idProducto != null && !this.idProducto.equals(other.idProducto))) {
-            return false;
-        }
-        return true;
-    }
+    
+    
 
     @Override
     public String toString() {

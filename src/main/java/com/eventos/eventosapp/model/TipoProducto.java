@@ -6,18 +6,13 @@
 package com.eventos.eventosapp.model;
 
 import java.io.Serializable;
-import java.util.Collection;
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.Size;
+
 
 /**
  *
@@ -25,30 +20,15 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "tipo_producto")
-@NamedQueries({
-    @NamedQuery(name = "TipoProducto.findAll", query = "SELECT t FROM TipoProducto t")
-    , @NamedQuery(name = "TipoProducto.findByIdTipo", query = "SELECT t FROM TipoProducto t WHERE t.idTipo = :idTipo")
-    , @NamedQuery(name = "TipoProducto.findByNombre", query = "SELECT t FROM TipoProducto t WHERE t.nombre = :nombre")})
+
 public class TipoProducto implements Serializable {
 
-    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "idTipo")
     private Integer idTipo;
-    @Size(max = 50)
+    
     @Column(name = "nombre")
     private String nombre;
-    @OneToMany(mappedBy = "idTipo")
-    private Collection<Producto> productoCollection;
-
-    public TipoProducto() {
-    }
-
-    public TipoProducto(Integer idTipo) {
-        this.idTipo = idTipo;
-    }
 
     public Integer getIdTipo() {
         return idTipo;
@@ -65,14 +45,7 @@ public class TipoProducto implements Serializable {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-
-    public Collection<Producto> getProductoCollection() {
-        return productoCollection;
-    }
-
-    public void setProductoCollection(Collection<Producto> productoCollection) {
-        this.productoCollection = productoCollection;
-    }
+    
 
     @Override
     public int hashCode() {

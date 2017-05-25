@@ -50,9 +50,10 @@
                                                                             <b:dataTable value="#{proveedorController.proveedores}" var="prov" responsive="true" widgetVar="dtP" style="text-align: center">
                                                                                 <b:dataTableColumn label="Proveedor" value="#{prov.proveedor}" style="text-align: center"/>
                                                                                 <b:dataTableColumn label="Propietario" value="#{prov.propietario}" style="text-align: center"/>
-                                                                                <b:dataTableColumn label="DUI" value="#{prov.dui}" style="text-align: center"/>
-                                                                                <b:dataTableColumn label="NIT" value="#{prov.nit}" style="text-align: center"/>
-                                                                                <b:dataTableColumn label="Dirección" value="#{prov.direccion}" style="text-align: center"/>
+                                                                                <b:dataTableColumn label="NCR" value="#{prov.ncr}" style="text-align: center"/>
+                                                                                <b:dataTableColumn label="Tipo de Producto" value="#{prov.tipo_producto}" style="text-align: center"/>
+                                                                                <b:dataTableColumn label="Forma de Entrega" value="#{prov.forma_entrega}" style="text-align: center"/>
+
                                                                                 <b:dataTableColumn label="Modificar" style="text-align: center;">
 
                                                                                     <!--                                                                                    <p:commandButton icon="ui-icon-pencil"
@@ -137,22 +138,29 @@
 
                                                                             <p:outputLabel/><p:outputLabel/><p:outputLabel/>
 
-                                                                            <p:outputLabel for="dui" value="DUI:" style="padding-left: 127px"/>
+                                                                            <p:outputLabel for="ncr" value="NCR:" style="padding-left: 127px"/>
 
-                                                                            <p:inputText id="dui" class="form-control" value="#{proveedorController.proveedor.dui}" required="true" requiredMessage="Campo Requerido"/> 
+                                                                            <p:inputText id="ncr" class="form-control" value="#{proveedorController.proveedor.ncr}" required="true" requiredMessage="Campo Requerido"/> 
 
-                                                                            <p:message for="dui" style="padding-left: 10px;"/>
+                                                                            <p:message for="ncr" style="padding-left: 10px;"/>  
 
-                                                                            <p:outputLabel/><p:outputLabel/><p:outputLabel/>      
+                                                                            <p:outputLabel/><p:outputLabel/><p:outputLabel/>
 
-                                                                            <p:outputLabel for="nit" value="NIT:" style="padding-left: 130px"/>
+                                                                            <p:outputLabel for="tipoProd" value="Tipo de Producto:" style="padding-left:40px"/>
 
-                                                                            <p:inputText id="nit" class="form-control" value="#{proveedorController.proveedor.nit}" required="true" requiredMessage="Campo Requerido"/> 
+                                                                            <p:inputText id="tipoProd" class="form-control" value="#{proveedorController.proveedor.tipo_producto}" required="true" requiredMessage="Campo Requerido"/> 
 
-                                                                            <p:message for="nit" style="padding-left: 10px;"/>
+                                                                            <p:message for="tipoProd" style="padding-left: 10px;"/>    
 
-                                                                            <p:outputLabel/><p:outputLabel/><p:outputLabel/>   
+                                                                            <p:outputLabel/><p:outputLabel/><p:outputLabel/> 
 
+                                                                            <p:outputLabel for="formaEnt" value="Forma de Entrega:" style="padding-left:30px"/>
+
+                                                                            <p:inputText id="formaEnt" class="form-control" value="#{proveedorController.proveedor.forma_entrega}" required="true" requiredMessage="Campo Requerido"/> 
+
+                                                                            <p:message for="formaEnt" style="padding-left: 10px;"/>    
+
+                                                                            <p:outputLabel/><p:outputLabel/><p:outputLabel/>
 
                                                                             <p:outputLabel for="dir" value="Dirección:" style="padding-left: 83px"/>
 
@@ -168,20 +176,20 @@
 
                                                                             <p:message for="tel" style="padding-left: 10px;"/>
 
-                                                                            <p:outputLabel/><p:outputLabel/><p:outputLabel/>  
                                                                         </h:panelGrid>
                                                                     </div>
                                                                 </div><!--Aqui termina el primer panel-->
                                                             </div>
-                                                        </div>
-                                                        <div class ="col-md-3" style=""></div>
-                                                        <div class="col-md-3" >
-                                                            <b:commandButton id="btnRegistrarP" update=":frmMostrar,mensaje,grid" actionListener="#{proveedorController.registrar()}" value="Registrar" class="form-control" 
-                                                                             style="background-color:#D2D4D6;color: black;border-color: black;width:85%" 
-                                                                             action="ProveedorAdm.xhtml?faces-redirect=true">
+                                                            <div class ="col-md-3" style=""></div>
+                                                            <div class="col-md-3" >
+                                                                <b:commandButton id="btnRegistrarP" update=":frmMostrar,mensaje,grid" actionListener="#{proveedorController.registrar()}" value="Registrar" class="form-control" 
+                                                                                 style="background-color:#D2D4D6;color: black;border-color: black;width:85%" 
+                                                                                 action="ProveedorAdm.xhtml?faces-redirect=true">
 
-                                                            </b:commandButton>
+                                                                </b:commandButton>
+                                                            </div>
                                                         </div>
+
                                                         <div class="col-md-6"></div>
                                                     </div>
                                                 </div>

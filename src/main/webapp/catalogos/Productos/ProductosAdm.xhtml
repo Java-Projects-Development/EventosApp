@@ -73,9 +73,9 @@
                                                                         <h:form id="frmMostrar">
                                                                             <b:dataTable value="#{productoController.productos}" var="prod" responsive="true" widgetVar="dtP" style="text-align: center">
                                                                                 <b:dataTableColumn label="Producto" value="#{prod.producto}" style="text-align: center"/>
-                                                                                <b:dataTableColumn label="Cantidad Actual del Producto" value="#{prod.stockActual}" style="text-align: center"/>
-                                                                                <b:dataTableColumn label="Unidad de Medida" value="#{prod.unidadMedida}" style="text-align: center"/>
-                                                                                <b:dataTableColumn label="Cantidad Mínima del Producto" value="#{prod.stockMinimo}" style="text-align: center"/>
+                                                                                <b:dataTableColumn label="Cantidad Actual" value="#{prod.stockActual}" style="text-align: center"/>
+                                                                                <b:dataTableColumn label="Descripcion" value="#{prod.descripcion}" style="text-align: center"/>
+                                                                                <b:dataTableColumn label="Precio de Venta" value="#{prod.precioVenta}" style="text-align: center"/>
                                                                                 <b:dataTableColumn label="Modificar" style="text-align: center;">
 
                                                                                     <!--                                                                                    <p:commandButton icon="ui-icon-pencil"
@@ -147,7 +147,7 @@
 
                                                                             <p:outputLabel for="nombreProd" value="Nombre del Producto:" style="padding-left: 65px" />
 
-                                                                            <p:inputText id="nombreProd" class="form-control" value="#{productoController.producto.producto}" 
+                                                                            <p:inputText id="nombreProd" class="form-control" value="#{productoController.producto.nombre_producto}" 
                                                                                          required="true" requiredMessage="Campo Requerido"/> 
 
                                                                             <p:message for="nombreProd" style="padding-left: 10px;"/>
@@ -155,19 +155,14 @@
                                                                             <p:outputLabel/><p:outputLabel/><p:outputLabel/>
 
 
-                                                                            <p:outputLabel for="unidadMedida" value="Unidad de Medida:" style="padding-left: 89px" />
+                                                                            <p:outputLabel for="tipoProd" value="Tipo de Producto:" style="padding-left: 89px" />
 
+                                                                            
 
+                                                                            <p:message for="tipoProd" style="padding-left: 10px;"/>
 
-                                                                            <h:selectOneMenu value="#{productoController.producto.unidadMedida}" id="unidadMedida" class="form-control" required="true" >
-                                                                                <f:selectItem itemLabel="Libras" itemValue="Libras"/>
-                                                                                <f:selectItem itemLabel="Kilogramos" itemValue="Kilogramos"/>
-                                                                            </h:selectOneMenu>
+                                                                            <p:outputLabel/><p:outputLabel/><p:outputLabel/>
 
-                                                                            <p:message for="unidadMedida" style="padding-left: 10px;"/>
-
-
-                                                                            <p:outputLabel/><p:outputLabel/><p:outputLabel/>   
 
                                                                             <p:outputLabel for="cantIP" value="Cantidad inicial de producto:" style="padding-left: 15px" />
 
@@ -182,11 +177,36 @@
 
                                                                             <p:inputText id="cantMP" value="#{productoController.producto.stockMinimo}" class="form-control" 
                                                                                          required="true" requiredMessage="Campo Requerido"/>
-                                                                            
+
                                                                             <p:message for="cantMP" style="padding-right: 10px;" />
-                                                                            
+
                                                                             <p:outputLabel/><p:outputLabel/><p:outputLabel/>   
-                                                                            
+
+                                                                            <p:outputLabel for="descripcion" value="Descripción:" style="padding-right: 10px" />
+
+                                                                            <p:inputText id="descripcion" value="#{productoController.producto.descripcion}" class="form-control" 
+                                                                                         required="true" requiredMessage="Campo Requerido"/>
+
+                                                                            <p:message for="descripcion" style="padding-right: 10px;" />
+
+                                                                            <p:outputLabel/><p:outputLabel/><p:outputLabel/>
+
+                                                                            <p:outputLabel for="precioC" value="Precio de Compra:" style="padding-right: 10px" />
+
+                                                                            <p:inputText id="precioC" value="#{productoController.producto.precioCompra}" class="form-control" 
+                                                                                         required="true" requiredMessage="Campo Requerido"/>
+
+                                                                            <p:message for="precioC" style="padding-right: 10px;" />
+
+                                                                            <p:outputLabel/><p:outputLabel/><p:outputLabel/>
+
+                                                                            <p:outputLabel for="precioV" value="Precio de Compra:" style="padding-right: 10px" />
+
+                                                                            <p:inputText id="precioV" value="#{productoController.producto.precioVenta}" class="form-control" 
+                                                                                         required="true" requiredMessage="Campo Requerido"/>
+
+                                                                            <p:message for="precioV" style="padding-right: 10px;" />
+
                                                                         </h:panelGrid>
                                                                     </div>
                                                                 </div><!--Aqui termina el primer panel-->
