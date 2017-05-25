@@ -28,6 +28,7 @@ public class ProductoController implements Serializable {
 
     @EJB
     private ProductoFacadeLocal productoEJB;
+    @EJB
     private TipoProductoFacadeLocal tipoProductoEJB;
 
     private Producto producto;
@@ -41,15 +42,16 @@ public class ProductoController implements Serializable {
         tipoProducto = new TipoProducto();
         producto = new Producto();
         productos = productoEJB.findAll();
-        
+        tipos = tipoProductoEJB.findAll();
 
     }
 
     public void registrar() {
         try {
-            producto.setTipoProducto(tipoProducto);
+            this.producto.setTipoProducto(tipoProducto);
             productoEJB.create(producto);
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Se registró"));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Producto Registrado"));
+            FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
         } catch (Exception e) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Aviso", "Error!"));
 
@@ -59,7 +61,7 @@ public class ProductoController implements Serializable {
 
     public void modificar() {
         try {
-            producto.setTipoProducto(tipoProducto);
+            this.producto.setTipoProducto(tipoProducto);
             productoEJB.edit(producto);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Se registró"));
         } catch (Exception e) {

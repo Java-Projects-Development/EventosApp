@@ -37,20 +37,26 @@ public class Producto implements Serializable {
 
     @Column(name = "nombre_producto")
     private String nombre_producto;
-    @JoinColumn(name = "id_tipo", referencedColumnName = "id_tipo")
+    
     @ManyToOne
+    @JoinColumn(name = "id_tipo", nullable = false)
     private TipoProducto tipoProducto;
+    
     @Column(name = "stockActual")
     private int stockActual;
+    
     @Column(name = "stockMinimo")
     private int stockMinimo;
+    
     @Column(name = "descripcion")
     private String descripcion;
+    
     @Column(name = "precio_compra")
     private double precioCompra;
+    
     @Column(name = "precio_venta")
     private double precioVenta;
-
+    
     public int getIdProducto() {
         return idProducto;
     }

@@ -72,10 +72,11 @@
                                                                     <div class="panel-body">
                                                                         <h:form id="frmMostrar">
                                                                             <b:dataTable value="#{productoController.productos}" var="prod" responsive="true" widgetVar="dtP" style="text-align: center">
-                                                                                <b:dataTableColumn label="Producto" value="#{prod.producto}" style="text-align: center"/>
+                                                                                <b:dataTableColumn label="Producto" value="#{prod.nombre_producto}" style="text-align: center"/>
                                                                                 <b:dataTableColumn label="Cantidad Actual" value="#{prod.stockActual}" style="text-align: center"/>
                                                                                 <b:dataTableColumn label="Descripcion" value="#{prod.descripcion}" style="text-align: center"/>
                                                                                 <b:dataTableColumn label="Precio de Venta" value="#{prod.precioVenta}" style="text-align: center"/>
+                                                                                <b:dataTableColumn label="Tipo de Producto" value="#{prod.tipoProducto.nombre}" style="text-align: center"/>
                                                                                 <b:dataTableColumn label="Modificar" style="text-align: center;">
 
                                                                                     <!--                                                                                    <p:commandButton icon="ui-icon-pencil"
@@ -155,12 +156,20 @@
                                                                             <p:outputLabel/><p:outputLabel/><p:outputLabel/>
 
 
-                                                                            <p:outputLabel for="tipoProd" value="Tipo de Producto:" style="padding-left: 89px" />
+                                                                            <p:outputLabel for="tipoProd" value="Tipo de Producto:" style="padding-left: 65px" />
 
-                                                                            
+                                                                            <h:selectOneMenu id="tipoProd" 
+                                                                                             class="form-control"
+                                                                                             converter="entityConverter"
+                                                                                             value="#{productoController.tipoProducto}">
+                                                                                <f:selectItem itemLabel="  --  Seleccione  --" itemValue="#{null}"/>
+                                                                                <f:selectItems value="#{productoController.tipos}"
+                                                                                               itemLabel="#{tipos.nombre}"
+                                                                                               var="tipos" itemValue="#{tipos}"/>  
+                                                                            </h:selectOneMenu>
 
-                                                                            <p:message for="tipoProd" style="padding-left: 10px;"/>
 
+                                                                            <p:message for="tipoProd" style="padding-left: 10px;" />
                                                                             <p:outputLabel/><p:outputLabel/><p:outputLabel/>
 
 
@@ -212,15 +221,16 @@
                                                                 </div><!--Aqui termina el primer panel-->
 
                                                             </div>
-                                                        </div>
-                                                        <div class ="col-md-3" style=""></div>
-                                                        <div class="col-md-3" >
-                                                            <b:commandButton id="btnRegistrarProd" update=":frmMostrar,mensaje,grid" actionListener="#{productoController.registrar()}" value="Registrar" class="form-control" 
-                                                                             style="background-color:#D2D4D6;color: black;border-color: black;width:85%" 
-                                                                             action="ProductosAdm.xhtml?faces-redirect=true">
+                                                            <div class ="col-md-3" style=""></div>
+                                                            <div class="col-md-3" >
+                                                                <b:commandButton id="btnRegistrarProd" update=":frmMostrar,mensaje,grid" actionListener="#{productoController.registrar()}" value="Registrar" class="form-control" 
+                                                                                 style="background-color:#D2D4D6;color: black;border-color: black;width:85%" 
+                                                                                 action="ProductosAdm.xhtml?faces-redirect=true">
 
-                                                            </b:commandButton>
+                                                                </b:commandButton>
+                                                            </div>
                                                         </div>
+
                                                         <div class="col-md-6"></div>
                                                     </div>
                                                 </div>

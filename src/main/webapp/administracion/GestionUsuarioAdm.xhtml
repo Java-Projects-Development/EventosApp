@@ -145,7 +145,7 @@
                                                                             <p:outputLabel for="sexo" value="Sexo:" />
 
                                                                             <h:selectOneMenu value="#{usuarioController.persona.sexo}" id="sexo" class="form-control">
-
+                                                                                <f:selectItem itemLabel="  --  Seleccione  --" itemValue="#{null}"/>
                                                                                 <f:selectItem itemLabel="Masculino" itemValue="M"/>
                                                                                 <f:selectItem itemLabel="Femenino" itemValue="F"/>
                                                                             </h:selectOneMenu>
@@ -210,6 +210,7 @@
 
 
                                                                             <h:selectOneMenu value="#{usuarioController.usuario.tipo_usuario}" id="tipoU" class="form-control">
+                                                                                <f:selectItem itemLabel="  --  Seleccione  --" itemValue="#{null}"/>
                                                                                 <f:selectItem itemLabel="Administrador" itemValue="A"/>
                                                                                 <f:selectItem itemLabel="Operario" itemValue="O"/>
                                                                             </h:selectOneMenu>
