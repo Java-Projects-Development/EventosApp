@@ -44,7 +44,7 @@
                                                                     <div class="panel-heading" style="border-color: black;text-align: center;background-color: #04536C">Datos Generales de la Factura</div>
                                                                     <div class="panel-body">
 
-                                                                        <div class="col-md-2" style="text-align: right;padding-top: 5px">
+                                                                        <div class="col-md-3" style="text-align: right;padding-top: 5px">
                                                                             Fecha Factura
                                                                         </div>
 
@@ -54,16 +54,12 @@
                                                                                         value="#{entradaProductoController.factura.fechaRegistro}" />
                                                                         </div>
 
-                                                                        <div class="col-md-2" style="text-align: right;padding-top: 5px">
+                                                                        <div class="col-md-3" style="text-align: right;padding-top: 5px">
                                                                             N° Factura
                                                                         </div>
 
-                                                                        <div class="col-md-2">
-                                                                            <h:inputText class="form-control" value="#{entradaProductoController.factura.numeroFactura}" />
-                                                                        </div>
-
                                                                         <div class="col-md-3">
-                                                                            <h:commandButton id="btnRegistrarU"  actionListener="#{usuarioController.registrar()}" value="Buscar Proveedor" class="form-control" style="background-color:#D2D4D6;color: black;border-color: black;"/>
+                                                                            <h:inputText class="form-control" value="#{entradaProductoController.factura.numeroFactura}" />
                                                                         </div>
 
                                                                         <br/><br/>
@@ -78,6 +74,14 @@
                                                                     <div class="panel-heading" style="border-color: black;text-align: center;background-color: #04536C">Datos del Proveedor</div>
                                                                     <div class="panel-body">
 
+                                                                        <div class="col-md-4"></div>
+                                                                        <div class="col-md-4">
+                                                                            <h:commandButton id="btnRegistrarU"  actionListener="#{usuarioController.registrar()}" value="Buscar Proveedor" class="form-control" style="background-color:#D2D4D6;color: black;border-color: black;"/>
+                                                                        </div>
+                                                                        <div class="col-md-4"></div>
+
+                                                                        <br/><br/>
+                                                                        
                                                                         <div class="col-md-4 col-xs-12" style="text-align: right;padding-top: 5px;"><!--Nombres-->
                                                                             Proveedor:
                                                                         </div>
@@ -222,7 +226,7 @@
                                                                         <p:separator/>
                                                                         <div class="col-md-4" align="center">
                                                                             <h:commandButton id="btnRegistrarU"  actionListener="#{usuarioController.registrar()}" value="Registrar" class="form-control" style="background-color:#D2D4D6;color: black;border-color: black;"/>
-                                                                            
+
                                                                         </div>
                                                                         <div class="col-md-4" align="center">
                                                                             <h:commandButton id="btnRegistrarU"  actionListener="#{usuarioController.registrar()}" value="Imprimir" class="form-control" style="background-color:#D2D4D6;color: black;border-color: black;"/>
