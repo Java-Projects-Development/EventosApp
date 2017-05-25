@@ -20,7 +20,7 @@
     <h:body style="background-image: url(recursos/imagenes/fondo5.jpg);background-repeat: no-repeat;background-size: 100%;">
 
         <h:form id="frmLogin">
-            <p:growl id="growl" autoUpdate="false" severity="info, fatal" showSummary="true" showDetail="true"/>
+            <p:growl id="growl" autoUpdate="false" severity="info, fatal" sticky="true" showSummary="true" showDetail="true"/>
 
             <div class="container" style='padding-top: 150px'>
 
@@ -55,7 +55,7 @@
 
                                     <div class="col-md-4"></div>
                                     <div class="col-md-7">
-                                        <b:commandButton class="form-control" update="growl" style="border-color: black;width: 60%;background-color:#D2D4D6;color: black;border-color: black;" action="#{loginController.iniciarSesion()}" value="Iniciar Sesion"/>
+                                        <b:commandButton update="growl" style="border-color: black;width: 60%;background-color:#D2D4D6;color: black;border-color: black;" action="#{loginController.iniciarSesion()}" value="Iniciar Sesion"/>
                                     </div>
                                 </div>
                             </div>
