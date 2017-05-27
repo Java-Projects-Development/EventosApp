@@ -2,27 +2,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui">
 
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta name="viewport" content="width=device-width,initial scale=1"/>
         <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
-        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css"/>
-
-        <!-- Latest compiled and minified CSS -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css"/><!--SelectPicker-->
-
-        <!-- Bootstrap Date-Picker Plugin -->
-
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
-
-        <link href="bootstrap-datepicker/css/datepicker.css" rel="stylesheet"/>
-
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css" />
-
-
 
         <title>Eventos y Decoraciones</title>
 
@@ -152,68 +138,44 @@
 
         <div id="top">
             <ui:insert name="top"></ui:insert>
-            <div id="navBar">
-                <br/>
-                <div class="container"><!--aca va el logo-->
-                    <div class="row">
-                        <div class="col-md-4">
-                            <a href="/EventosConta/inicioAdm.xhtml"> <img src="/EventosConta/resources/img/logoEventos.png" class="img-thumbnail" alt="Logo Original" width="250" height="50" style="border: none;" /></a> 
-                        </div>
-                    </div>
-                </div><!--aca acaba el logo-->
-                <br/>
-                <div class="container">
-                    <nav class="navbar navbar-inverse" role="navigation"><!--Aca empieza la navbar-->
-                        <div class="container-fluid">
-                            <div class="navbar-header">
-                                <a class="navbar-brand hidden-lg hidden-md" href="#">Menú</a>
-                                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                                    <span class="icon-bar"></span>
-                                    <span class="icon-bar"></span>
-                                    <span class="icon-bar"></span> 
-                                </button>
-                            </div>
-                            <div class="collapse navbar-collapse" id="myNavbar">
-                                <ul class="nav navbar-nav">
-                                    <li><a href="/EventosConta/inicioAdm.xhtml">Inicio</a></li>
-                                    <li class="dropdown">
-                                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Administración
-                                            <span class="caret"></span></a>
-                                        <ul class="dropdown-menu">
-                                            <li><a href="/EventosConta/administracion/GestionUsuarioAdm.xhtml">Agregar Usuario</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="dropdown">
-                                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Catálogos
-                                            <span class="caret"></span></a>
-                                        <ul class="dropdown-menu">
-                                            <li><a href="/EventosConta/catalogos/proveedor/ProveedorAdm.xhtml">Proveedores</a></li>
-                                            <li><a href="/EventosConta/catalogos/Productos/ProductosAdm.xhtml">Productos</a></li>
 
-                                        </ul>
-                                    </li>
-                                    <li class="dropdown">
-                                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Operaciones
-                                            <span class="caret"></span></a>
-                                        <ul class="dropdown-menu">
-                                            <li><a href="/EventosConta/Operaciones/EntradaProducto/EntradaProductoAdm.xhtml">Compras</a></li>
-                                            <li><a href="#">Ventas</a></li>
+            <br/>
+            <b:container class="container"><!--aca va el logo-->
+                <b:row>
+                    <b:column col-md="4">
+                        <a href="/EventosConta/inicioAdm.xhtml"> <img src="/EventosConta/resources/img/logoEventos.png" class="img-thumbnail" alt="Logo Original" width="250" height="50" style="border: none;" /></a> 
+                    </b:column>
+                </b:row><!--aca acaba el logo-->
+            </b:container>
+            <br/>
+            <b:container>
+                <b:navBar class="navbar navbar-inverse" ><!--Aca empieza la navbar-->
+                    <b:container fluid="true">
 
-                                        </ul>
-                                    </li>
-                                    <li><a href="#">Reportes</a></li>
+                        <b:navbarLinks>
+                            <b:navLink value="Inicio" href="/EventosConta/inicioAdm.xhtml"></b:navLink>
+                            <b:dropMenu value="Administación">
+                                <b:navLink value="Gestion de Usuarios" href="/EventosConta/administracion/GestionUsuarioAdm.xhtml"></b:navLink>
+                            </b:dropMenu>
+                            <b:dropMenu value="Catálogos">
+                                <b:navLink value="Productos" href="/EventosConta/catalogos/productos/ProductosAdm.xhtml"></b:navLink>
+                                <b:navLink value="Proveedores" href="/EventosConta/catalogos/proveedores/ProveedorAdm.xhtml"></b:navLink>
+                            </b:dropMenu>
+                            <b:dropMenu value="Operaciones">
+                                <b:navLink value="Compras" href="/EventosConta/Operaciones/EntradaProducto/EntradaProductoAdm.xhtml"></b:navLink>
+                                <b:navLink value="Ventas" href="#"></b:navLink>
+                            </b:dropMenu>
+                        </b:navbarLinks>
 
-                                </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a href="#"><span class="glyphicon glyphicon-log-in" style="color:#921224;padding-right: 5px"></span> Cerrar Sesión </a></li>
+                        </ul>
 
-                                <ul class="nav navbar-nav navbar-right">
-                                    <li><a href="#"><span class="glyphicon glyphicon-log-in" style="color:#921224;padding-right: 5px"></span> Cerrar Sesión </a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </nav><!--Aca acaba la navbar-->
-                </div>
-            </div>
+                    </b:container>
+                </b:navBar><!--Aca acaba la navbar-->
+            </b:container>
         </div>
+
 
         <div id="content" class="center_content">
             <ui:insert name="content"></ui:insert>
@@ -221,32 +183,19 @@
 
         <div id="bottom">
             <ui:insert name="bottom"></ui:insert>
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12" style="text-align: center">
+            <b:container>
+                <b:row>
+                    <b:column col-lg="12" style="text-align: center">
                         <strong> Copyright © 2017</strong>
-                    </div>
-                </div>
+                    </b:column>
+                </b:row>
                 <br/>
-            </div>
+            </b:container>
         </div>
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <!-- Latest compiled and minified JavaScript -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
-
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
-
-        <script src="bootstrap-datepicker/js/bootstrap-datepicker.js"></script>  
-
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/locale/es.js"></script>
-
-        <script src="code.jquery.com/jquery-1.12.4.js"/>
-        <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"/>
-        <script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap.min.js"/>
 
 
         <script type="text/javascript">

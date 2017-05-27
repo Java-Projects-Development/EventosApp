@@ -70,6 +70,18 @@ public class ProductoController implements Serializable {
         }
 
     }
+    
+    public void eliminar() {
+        try {
+            
+            productoEJB.remove(producto);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Removido con éxito"));
+        } catch (Exception e) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Aviso", "Error!"));
+
+        }
+
+    }
 
     //Getter y Setter
     public Producto getProducto() {
