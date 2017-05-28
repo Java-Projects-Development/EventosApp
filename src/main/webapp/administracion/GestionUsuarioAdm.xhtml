@@ -65,7 +65,7 @@
                         <b:modal id="modalRegistrar" title="Registro de Usuarios" style="text-align: center" styleClass="modalPseudoClass" size="modal-lg" >
 
                               <h:form id="frmCrear">
-                                    <br/><br/>
+                                    <br/>
                                     <b:row>
                                           <div class="col-lg-12" align="center">
                                                 <b:panel look="primary" collapsible="false" style="width: 75%;border-color: black;text-align: center">
@@ -124,7 +124,7 @@
 
 
                                                                   <p:calendar id="fechaNac" effect="fold"/>
-                                                                  
+
                                                                   <p:message for="fechaNac" style="padding-left: 10px;"/>
 
                                                                   <h:outputLabel/><p:outputLabel/><p:outputLabel/>    
@@ -213,7 +213,9 @@
                                     </b:row>
                                     <br/>
                               </h:form>
-
+                              <f:facet name="footer">
+                                    <b:button value="Cerrar" dismiss="modal" />
+                              </f:facet>
                         </b:modal>
 
 
