@@ -240,6 +240,10 @@ public class EntradaProductoController implements Serializable {
                   this.guardarFactura();
                   for (DetalleFactura item : listaDetalleFactura) {
                         detalleEJB.create(item);
+                        productoSeleccionado=item.getIdProducto();
+                        productoSeleccionado.setStockActual(productoSeleccionado.getStockActual()+item.getCantidad());
+                        productoSeleccionado.setPrecioCompra(item.getPrecioUnitario());
+                        productoEJB.edit(productoSeleccionado);
                   }
             } catch (Exception e) {
             }

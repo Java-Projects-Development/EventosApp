@@ -37,7 +37,8 @@
                                                             <b:dataTableColumn label="Producto" value="#{prod.nombre_producto}" style="text-align: center"/>
                                                             <b:dataTableColumn label="Cantidad actual" value="#{prod.stockActual}" style="text-align: center"/>
                                                             <b:dataTableColumn label="Descripción" value="#{prod.descripcion}" style="text-align: center"/>
-                                                            <b:dataTableColumn label="Precio de venta" value="#{prod.precioVenta}" style="text-align: center"/>
+                                                            <b:dataTableColumn label="Precio de compra" value="$#{prod.precioCompra}" style="text-align: center"/>
+                                                            <b:dataTableColumn label="Precio de venta" value="$#{prod.precioVenta}" style="text-align: center"/>
                                                             <b:dataTableColumn label="Tipo de Producto" value="#{prod.tipoProducto.nombre}" style="text-align: center"/>
                                                             <b:dataTableColumn label="Modificar" style="text-align: center;">
 
@@ -182,8 +183,6 @@
                                                                   <p:message for="stockM" style="padding-left: 10px;"/>
 
                                                                   <p:outputLabel/><p:outputLabel/><p:outputLabel/>    
-
-                                                                 
 
                                                                   <p:outputLabel for="precioV" value="Precio de Venta:" />
 

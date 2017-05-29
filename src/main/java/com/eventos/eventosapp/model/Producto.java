@@ -43,7 +43,7 @@ public class Producto implements Serializable {
     private TipoProducto tipoProducto;
     
     @Column(name = "stockActual")
-    private int stockActual;
+    private double stockActual;
     
     @Column(name = "stockMinimo")
     private int stockMinimo;
@@ -52,7 +52,7 @@ public class Producto implements Serializable {
     private String descripcion;
     
     @Column(name = "precio_compra")
-    private double precioCompra;
+    private BigDecimal precioCompra;
     
     @Column(name = "precio_venta")
     private double precioVenta;
@@ -81,11 +81,11 @@ public class Producto implements Serializable {
         this.tipoProducto = tipoProducto;
     }
 
-    public int getStockActual() {
+    public double getStockActual() {
         return stockActual;
     }
 
-    public void setStockActual(int stockActual) {
+    public void setStockActual(double stockActual) {
         this.stockActual = stockActual;
     }
 
@@ -105,11 +105,11 @@ public class Producto implements Serializable {
         this.descripcion = descripcion;
     }
 
-    public double getPrecioCompra() {
+    public BigDecimal getPrecioCompra() {
         return precioCompra;
     }
 
-    public void setPrecioCompra(double precioCompra) {
+    public void setPrecioCompra(BigDecimal precioCompra) {
         this.precioCompra = precioCompra;
     }
 
