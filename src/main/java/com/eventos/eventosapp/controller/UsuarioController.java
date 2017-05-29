@@ -60,8 +60,7 @@ public class UsuarioController implements Serializable {
 
     public void modificar() {
         try {
-            this.usuario.setId_usuario(persona);
-            usuarioEJB.edit(usuario);
+            personaEJB.edit(persona);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Usuario modificado con éxito"));
             FacesContext context = FacesContext.getCurrentInstance();
             context.getExternalContext().getFlash().setKeepMessages(true);

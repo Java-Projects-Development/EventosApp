@@ -5,7 +5,6 @@
  */
 package com.eventos.eventosapp.controller;
 
-
 import com.eventos.eventosapp.ejb.DetalleFacturaFacadeLocal;
 import com.eventos.eventosapp.ejb.FacturaFacadeLocal;
 import com.eventos.eventosapp.ejb.ProductoFacadeLocal;
@@ -35,226 +34,227 @@ import org.primefaces.event.CellEditEvent;
 @ViewScoped
 public class EntradaProductoController implements Serializable {
 
-      private Proveedor proveedorSeleccionado;
-      private Producto productoSeleccionado;
-      private Double cantidadProducto;
-      private Factura factura;
-      private BigDecimal precioUnitario;
-      private DetalleFactura detalleFactura;
-      private TipoProducto tipoProducto;
-      @EJB
-      private DetalleFacturaFacadeLocal detalleEJB;
-      private BigDecimal totalDetalle;
+    private Proveedor proveedorSeleccionado;
+    private Producto productoSeleccionado;
+    private Double cantidadProducto;
+    private Factura factura;
+    private BigDecimal precioUnitario;
+    private DetalleFactura detalleFactura;
+    private TipoProducto tipoProducto;
+    @EJB
+    private DetalleFacturaFacadeLocal detalleEJB;
+    private BigDecimal totalDetalle;
 
-      @EJB
-      private FacturaFacadeLocal facturaEJB;
-      @EJB
-      private ProveedorFacadeLocal proveedorEJB;
-      @EJB
-      private ProductoFacadeLocal productoEJB;
+    @EJB
+    private FacturaFacadeLocal facturaEJB;
+    @EJB
+    private ProveedorFacadeLocal proveedorEJB;
+    @EJB
+    private ProductoFacadeLocal productoEJB;
 
-      private List<Proveedor> proveedores;
+    private List<Proveedor> proveedores;
 
-      private List<DetalleFactura> listaDetalleFactura;
+    private List<DetalleFactura> listaDetalleFactura;
 
-      @PostConstruct
-      public void init() {
+    @PostConstruct
+    public void init() {
 
-            proveedorSeleccionado = new Proveedor();
-            productoSeleccionado = new Producto();
-            factura = new Factura();
-            proveedores = proveedorEJB.findAll();
-            listaDetalleFactura = new ArrayList<>();
-            detalleFactura = new DetalleFactura();
+        proveedorSeleccionado = new Proveedor();
+        productoSeleccionado = new Producto();
+        factura = new Factura();
+        proveedores = proveedorEJB.findAll();
+        listaDetalleFactura = new ArrayList<>();
+        detalleFactura = new DetalleFactura();
 
-      }
+    }
 
-      public void modificar() {
-            try {
-                  calcularTotalFacturaCompra();
-                  detalleEJB.edit(detalleFactura);
-                  FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Se modifico"));
+    public void modificar() {
+        try {
+            calcularTotalFacturaCompra();
+            detalleEJB.edit(detalleFactura);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Se modifico"));
 
-            } catch (Exception e) {
-                  FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Aviso", "No se modifico!"));
+        } catch (Exception e) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Aviso", "No se modifico!"));
 
+        }
+    }
+
+    public void calcularTotal() {
+        BigDecimal totalCompraPorProducto = detalleFactura.getPrecioUnitario().multiply(new BigDecimal(detalleFactura.getCantidad()));
+
+    }
+
+    public void guardarFactura() {
+        facturaEJB.create(factura);
+    }
+
+    public void guardarDetalle() {
+        try {
+
+            if (detalleFactura.getCantidad() == 0 || detalleFactura.getPrecioUnitario().floatValue() == 0) {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "EL valor ingresado es incorrecto"));
+            } else {
+                this.listaDetalleFactura.add(detalleFactura = new DetalleFactura(factura, productoSeleccionado, detalleFactura.getCantidad(), detalleFactura.getPrecioUnitario(), BigDecimal.valueOf(detalleFactura.getPrecioUnitario().floatValue() * detalleFactura.getCantidad().floatValue())));
+                this.detalleFactura = new DetalleFactura();
+                this.productoSeleccionado = new Producto();
+                //Calcula total de la venta
+                calcularTotalFacturaCompra();
             }
-      }
+        } catch (Exception e) {
+        }
+    }
 
+    public void seleccion(Proveedor seleccion) {
+        proveedorSeleccionado = seleccion;
+    }
 
-      public void calcularTotal() {
-            BigDecimal totalCompraPorProducto = detalleFactura.getPrecioUnitario().multiply(new BigDecimal(detalleFactura.getCantidad()));
-            
-      }
+    public void handleKeyEvent() {
+        FacesContext.getCurrentInstance().getAttributes().keySet().add(cantidadProducto);
+    }
 
-      public void guardarFactura() {
-            facturaEJB.create(factura);
-      }
+    public Proveedor getProveedorSeleccionado() {
+        return proveedorSeleccionado;
 
-      public void guardarDetalle() {
-            try {
+    }
 
-                  if (detalleFactura.getCantidad() == 0 || detalleFactura.getPrecioUnitario().floatValue() == 0) {
-                        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "EL valor ingresado es incorrecto"));
-                  } else {
-                        this.listaDetalleFactura.add(detalleFactura = new DetalleFactura(factura, productoSeleccionado, detalleFactura.getCantidad(), detalleFactura.getPrecioUnitario(), BigDecimal.valueOf(detalleFactura.getPrecioUnitario().floatValue() * detalleFactura.getCantidad().floatValue())));
-                        this.detalleFactura = new DetalleFactura();
-                        this.productoSeleccionado = new Producto();
-                        //Calcula total de la venta
-                        calcularTotalFacturaCompra();
-                  }
-            } catch (Exception e) {
+    public void setProveedorSeleccionado(Proveedor proveedorSeleccionado) {
+        this.proveedorSeleccionado = proveedorSeleccionado;
+    }
+
+    public List<Proveedor> getProveedores() {
+        return proveedores;
+    }
+
+    public void setProveedores(List<Proveedor> proveedores) {
+        this.proveedores = proveedores;
+    }
+
+    public List<DetalleFactura> getListaDetalleFactura() {
+        return listaDetalleFactura;
+    }
+
+    public void setListaDetalleFactura(List<DetalleFactura> listaDetalleFactura) {
+        this.listaDetalleFactura = listaDetalleFactura;
+    }
+
+    public Producto getProductoSeleccionado() {
+        return productoSeleccionado;
+    }
+
+    public void setProductoSeleccionado(Producto productoSeleccionado) {
+        this.productoSeleccionado = productoSeleccionado;
+    }
+
+    public Double getCantidadProducto() {
+        return cantidadProducto;
+    }
+
+    public void setCantidadProducto(Double cantidadProducto) {
+        this.cantidadProducto = cantidadProducto;
+    }
+
+    public Factura getFactura() {
+        return factura;
+    }
+
+    public void setFactura(Factura factura) {
+        this.factura = factura;
+    }
+
+    public BigDecimal getPrecioUnitario() {
+        return precioUnitario;
+    }
+
+    public void setPrecioUnitario(BigDecimal precioUnitario) {
+        this.precioUnitario = precioUnitario;
+    }
+
+    public void onCellEditPrecio(CellEditEvent event) {
+        Object oldValue = event.getOldValue();
+        Object newValue = event.getNewValue();
+
+        detalleFactura.setPrecioUnitario((BigDecimal) event.getNewValue());
+
+    }
+
+    public void onCellEditCantidad(CellEditEvent event) {
+        Object oldValue = event.getOldValue();
+        Object newValue = event.getNewValue();
+
+        detalleFactura.setCantidad((Double) event.getNewValue());
+
+    }
+
+    public void generarTotal() {
+
+        this.detalleFactura.setTotalCompra(this.detalleFactura.getPrecioUnitario().multiply(new BigDecimal(this.detalleFactura.getCantidad().floatValue())));
+
+    }
+
+    public DetalleFactura getDetalleFactura() {
+        return detalleFactura;
+    }
+
+    public void setDetalleFactura(DetalleFactura detalleFactura) {
+        this.detalleFactura = detalleFactura;
+    }
+
+    public void calcularTotalFacturaCompra() {
+        BigDecimal totalFacturaCompra = new BigDecimal(0);
+
+        try {
+            for (DetalleFactura item : listaDetalleFactura) {
+                BigDecimal totalCompraPorProducto = item.getPrecioUnitario().multiply(new BigDecimal(item.getCantidad()));
+                item.setTotalCompra(totalCompraPorProducto);
+                totalFacturaCompra = totalFacturaCompra.add(totalCompraPorProducto);
+                this.factura.setTotalVenta(totalFacturaCompra);
             }
-      }
+            this.factura.setTotalVenta(totalFacturaCompra);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
 
-      public void seleccion(Proveedor seleccion) {
-            proveedorSeleccionado = seleccion;
-      }
+    }
 
-      public void handleKeyEvent() {
-            FacesContext.getCurrentInstance().getAttributes().keySet().add(cantidadProducto);
-      }
+    public void quitarProductoDetalleFactura() {
+        detalleEJB.remove(detalleFactura);
+        this.calcularTotalFacturaCompra();
 
-      public Proveedor getProveedorSeleccionado() {
-            return proveedorSeleccionado;
+    }
 
-      }
+    //Metodo para limpiar Factura
+    public void limpiarFactura() {
+        this.proveedorSeleccionado = new Proveedor();
+        this.factura = new Factura();
+        this.listaDetalleFactura = new ArrayList<>();
+        this.totalDetalle = null;
+        this.productoSeleccionado = new Producto();
+    }
 
-      public void setProveedorSeleccionado(Proveedor proveedorSeleccionado) {
-            this.proveedorSeleccionado = proveedorSeleccionado;
-      }
-
-      public List<Proveedor> getProveedores() {
-            return proveedores;
-      }
-
-      public void setProveedores(List<Proveedor> proveedores) {
-            this.proveedores = proveedores;
-      }
-
-      public List<DetalleFactura> getListaDetalleFactura() {
-            return listaDetalleFactura;
-      }
-
-      public void setListaDetalleFactura(List<DetalleFactura> listaDetalleFactura) {
-            this.listaDetalleFactura = listaDetalleFactura;
-      }
-
-      public Producto getProductoSeleccionado() {
-            return productoSeleccionado;
-      }
-
-      public void setProductoSeleccionado(Producto productoSeleccionado) {
-            this.productoSeleccionado = productoSeleccionado;
-      }
-
-      public Double getCantidadProducto() {
-            return cantidadProducto;
-      }
-
-      public void setCantidadProducto(Double cantidadProducto) {
-            this.cantidadProducto = cantidadProducto;
-      }
-
-      public Factura getFactura() {
-            return factura;
-      }
-
-      public void setFactura(Factura factura) {
-            this.factura = factura;
-      }
-
-      public BigDecimal getPrecioUnitario() {
-            return precioUnitario;
-      }
-
-      public void setPrecioUnitario(BigDecimal precioUnitario) {
-            this.precioUnitario = precioUnitario;
-      }
-
-      public void onCellEditPrecio(CellEditEvent event) {
-            Object oldValue = event.getOldValue();
-            Object newValue = event.getNewValue();
-
-            detalleFactura.setPrecioUnitario((BigDecimal) event.getNewValue());
-
-      }
-
-      public void onCellEditCantidad(CellEditEvent event) {
-            Object oldValue = event.getOldValue();
-            Object newValue = event.getNewValue();
-
-            detalleFactura.setCantidad((Double) event.getNewValue());
-
-      }
-
-      public void generarTotal() {
-
-            this.detalleFactura.setTotalCompra(this.detalleFactura.getPrecioUnitario().multiply(new BigDecimal(this.detalleFactura.getCantidad().floatValue())));
-
-      }
-
-      public DetalleFactura getDetalleFactura() {
-            return detalleFactura;
-      }
-
-      public void setDetalleFactura(DetalleFactura detalleFactura) {
-            this.detalleFactura = detalleFactura;
-      }
-
-      public void calcularTotalFacturaCompra() {
-            BigDecimal totalFacturaCompra = new BigDecimal(0);
-
-            try {
-                  for (DetalleFactura item : listaDetalleFactura) {
-                        BigDecimal totalCompraPorProducto = item.getPrecioUnitario().multiply(new BigDecimal(item.getCantidad()));
-                        item.setTotalCompra(totalCompraPorProducto);
-                        totalFacturaCompra = totalFacturaCompra.add(totalCompraPorProducto);
-                        this.factura.setTotalVenta(totalFacturaCompra);
-                  }
-                  this.factura.setTotalVenta(totalFacturaCompra);
-            } catch (Exception e) {
-                  System.out.println(e.getMessage());
+    //Metodo para guardar Factura de compra
+    public void guardarCompra() {
+        try {
+            this.guardarFactura();
+            for (DetalleFactura item : listaDetalleFactura) {
+                detalleEJB.create(item);
+                productoSeleccionado = item.getIdProducto();
+                productoSeleccionado.setStockActual(productoSeleccionado.getStockActual() + item.getCantidad());
+                productoSeleccionado.setPrecioCompra(item.getPrecioUnitario());
+                productoEJB.edit(productoSeleccionado);
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Factura de Compra registrada con éxito"));
+                FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
             }
+        } catch (Exception e) {
+        }
+    }
 
-      }
+    public TipoProducto getTipoProducto() {
+        return tipoProducto;
+    }
 
-      public void quitarProductoDetalleFactura() {
-            detalleEJB.remove(detalleFactura);
-            this.calcularTotalFacturaCompra();
+    public void setTipoProducto(TipoProducto tipoProducto) {
+        this.tipoProducto = tipoProducto;
+    }
 
-      }
-
-      //Metodo para limpiar Factura
-      public void limpiarFactura() {
-            this.proveedorSeleccionado = new Proveedor();
-            this.factura = new Factura();
-            this.listaDetalleFactura = new ArrayList<>();
-            this.totalDetalle = null;
-            this.productoSeleccionado = new Producto();
-      }
-
-      //Metodo para guardar Factura de compra
-      public void guardarCompra() {
-            try {
-                  this.guardarFactura();
-                  for (DetalleFactura item : listaDetalleFactura) {
-                        detalleEJB.create(item);
-                        productoSeleccionado=item.getIdProducto();
-                        productoSeleccionado.setStockActual(productoSeleccionado.getStockActual()+item.getCantidad());
-                        productoSeleccionado.setPrecioCompra(item.getPrecioUnitario());
-                        productoEJB.edit(productoSeleccionado);
-                  }
-            } catch (Exception e) {
-            }
-      }
-
-      public TipoProducto getTipoProducto() {
-            return tipoProducto;
-      }
-
-      public void setTipoProducto(TipoProducto tipoProducto) {
-            this.tipoProducto = tipoProducto;
-      }
-      
 }

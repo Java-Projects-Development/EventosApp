@@ -7,225 +7,225 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:b="http://bootsfaces.net/ui">
 
-      <body>
+    <body>
 
-            <ui:composition template="./../../plantillas/mpAdmin.xhtml">
+        <ui:composition template="./../../plantillas/mpAdmin.xhtml">
 
-                  <ui:define name="content">
-                        <!--Aca ira todo el contenido-->
-                        <b:container>
-                              <b:panel collapsible="false" look="primary" 
-                                       style="text-align: center;border-color: black;">
+            <ui:define name="content">
+                <!--Aca ira todo el contenido-->
+                <b:container>
+                    <b:panel collapsible="false" look="primary" 
+                             style="text-align: center;border-color: black;">
+                        <f:facet name="heading">
+                            <h4>Gestión de Productos</h4>
+                        </f:facet>
+                        <b:column col-lg="12" >
+                            <br/>
+                            <b:column col-md="4"></b:column >
+                            <b:column col-md="4" style="padding-left:55px">
+                                <h:commandButton class="form-control" value="Registrar Producto" onclick="$('#modalRegistrar').modal('show');" style="background-color:#D2D4D6;color: black;border-color: black" immediate="true" />
+
+                            </b:column >
+
+                            <br/><br/><br/>
+                            <b:panel look="primary" collapsible="false" style="border-color: black;text-align: center">
+                                <f:facet name="heading">
+                                    <h4>Productos Registrados</h4>
+                                </f:facet>
+                                <h:form id="frmMostrar">
+                                    <b:dataTable value="#{productoController.productos}" var="prod" responsive="true" widgetVar="dtU" style="text-align: center">
+                                        <b:dataTableColumn label="Producto" value="#{prod.nombre_producto}" style="text-align: center"/>
+                                        <b:dataTableColumn label="Cantidad actual" value="#{prod.stockActual}" style="text-align: center"/>
+                                        <b:dataTableColumn label="Descripción" value="#{prod.descripcion}" style="text-align: center"/>
+                                        <b:dataTableColumn label="Precio de compra" value="$#{prod.precioCompra}" style="text-align: center"/>
+                                        <b:dataTableColumn label="Precio de venta" value="$#{prod.precioVenta}" style="text-align: center"/>
+                                        <b:dataTableColumn label="Tipo de Producto" value="#{prod.tipoProducto.nombre}" style="text-align: center"/>
+                                        <b:dataTableColumn label="Modificar" style="text-align: center;">
+
+                                            <p:commandButton  icon="ui-icon-pencil" onclick="$('#modalModificar').modal('show');" update="frmModificar" immediate="true" >
+                                                <f:setPropertyActionListener target="#{productoController.producto}" value="#{prod}" />
+                                            </p:commandButton>
+
+                                        </b:dataTableColumn>
+                                    </b:dataTable>
+                                </h:form>
+                            </b:panel>
+                        </b:column>
+                    </b:panel>
+                </b:container>
+
+
+
+                <b:modal id="modalRegistrar" title="Registro de Productos" style="text-align: center" styleClass="modalPseudoClass" size="modal-lg" >
+                    <p:growl id="growlR" autoUpdate="false" severity="info, fatal" showSummary="true" showDetail="true"/>
+                    <h:form id="frmCrear">
+
+                        <b:row>
+                            <div class="col-lg-12" align="center">
+                                <b:panel look="primary" collapsible="false" style="width: 75%;border-color: black;text-align: center">
                                     <f:facet name="heading">
-                                          <h4>Gestión de Productos</h4>
+                                        <h4>Datos del Producto</h4>
                                     </f:facet>
-                                    <b:column col-lg="12" >
-                                          <br/>
-                                          <b:column col-md="4"></b:column >
-                                          <b:column col-md="4" style="padding-left:55px">
-                                                <h:commandButton class="form-control" value="Registrar Producto" onclick="$('#modalRegistrar').modal('show');" style="background-color:#D2D4D6;color: black;border-color: black" immediate="true" />
+                                    <div class="panel-body" align="center">
+                                        <h:panelGrid id="grid" columns="3" cellpadding="5" style="text-align:  center">
 
-                                          </b:column >
+                                            <p:outputLabel for="nombreP" value="Nombre del producto" />
 
-                                          <br/><br/><br/>
-                                          <b:panel look="primary" collapsible="false" style="border-color: black;text-align: center">
-                                                <f:facet name="heading">
-                                                      <h4>Productos Registrados</h4>
-                                                </f:facet>
-                                                <h:form id="frmMostrar">
-                                                      <b:dataTable value="#{productoController.productos}" var="prod" responsive="true" widgetVar="dtU" style="text-align: center">
-                                                            <b:dataTableColumn label="Producto" value="#{prod.nombre_producto}" style="text-align: center"/>
-                                                            <b:dataTableColumn label="Cantidad actual" value="#{prod.stockActual}" style="text-align: center"/>
-                                                            <b:dataTableColumn label="Descripción" value="#{prod.descripcion}" style="text-align: center"/>
-                                                            <b:dataTableColumn label="Precio de compra" value="$#{prod.precioCompra}" style="text-align: center"/>
-                                                            <b:dataTableColumn label="Precio de venta" value="$#{prod.precioVenta}" style="text-align: center"/>
-                                                            <b:dataTableColumn label="Tipo de Producto" value="#{prod.tipoProducto.nombre}" style="text-align: center"/>
-                                                            <b:dataTableColumn label="Modificar" style="text-align: center;">
+                                            <p:inputText id="nombreP" class="form-control" value="#{productoController.producto.nombre_producto}" required="true" requiredMessage="Campo Requerido"/> 
 
-                                                                  <p:commandButton  icon="ui-icon-pencil" onclick="$('#modalModificar').modal('show');" update="frmModificar" immediate="true" >
-                                                                        <f:setPropertyActionListener target="#{productoController.producto}" value="#{prod}" />
-                                                                  </p:commandButton>
+                                            <p:message for="nombreP" style="padding-left: 10px;"/>
 
-                                                            </b:dataTableColumn>
-                                                      </b:dataTable>
-                                                </h:form>
-                                          </b:panel>
-                                    </b:column>
-                              </b:panel>
-                        </b:container>
+                                            <p:outputLabel/><p:outputLabel/><p:outputLabel/>
 
+                                            <p:outputLabel for="tipoP" value="Tipo de producto:"  />
 
+                                            <h:selectOneMenu id="tipoP" class="form-control"
+                                                             required="true" requiredMessage="Campo Requerida"
+                                                             converter="entityConverter"
+                                                             value="#{productoController.tipoProducto}">
+                                                <f:selectItem itemLabel="----Seleccione----" noSelectionOption="true"/>
+                                                <f:selectItems value="#{productoController.tipos}"
+                                                               itemLabel="#{tipos.nombre}"
+                                                               var="tipos" itemValue="#{tipos}"/>  
+                                            </h:selectOneMenu>
 
-                        <b:modal id="modalRegistrar" title="Registro de Productos" style="text-align: center" styleClass="modalPseudoClass" size="modal-lg" >
-                              <p:growl id="growlR" autoUpdate="false" severity="info, fatal" showSummary="true" showDetail="true"/>
-                              <h:form id="frmCrear">
+                                            <p:message for="tipoP" style="padding-left: 10px;"/>
 
-                                    <b:row>
-                                          <div class="col-lg-12" align="center">
-                                                <b:panel look="primary" collapsible="false" style="width: 75%;border-color: black;text-align: center">
-                                                      <f:facet name="heading">
-                                                            <h4>Datos del Producto</h4>
-                                                      </f:facet>
-                                                      <div class="panel-body" align="center">
-                                                            <h:panelGrid id="grid" columns="3" cellpadding="5" style="text-align:  center">
+                                            <p:outputLabel/><p:outputLabel/><p:outputLabel/>
 
-                                                                  <p:outputLabel for="nombreP" value="Nombre del producto" />
+                                            <p:outputLabel for="stockM" value="Cantidad mínima:"/>
 
-                                                                  <p:inputText id="nombreP" class="form-control" value="#{productoController.producto.nombre_producto}" required="true" requiredMessage="Campo Requerido"/> 
+                                            <p:inputText id="stockM" class="form-control" value="#{productoController.producto.stockMinimo}" required="true" requiredMessage="Campo Requerido"/> 
 
-                                                                  <p:message for="nombreP" style="padding-left: 10px;"/>
+                                            <p:message for="stockM" style="padding-left: 10px;"/>
 
-                                                                  <p:outputLabel/><p:outputLabel/><p:outputLabel/>
+                                            <p:outputLabel/><p:outputLabel/><p:outputLabel/>    
 
-                                                                  <p:outputLabel for="tipoP" value="Tipo de producto:"  />
+                                            <p:outputLabel for="precioV" value="Precio de Venta:" />
 
-                                                                  <h:selectOneMenu id="tipoP" class="form-control"
-                                                                                   required="true" requiredMessage="Campo Requerida"
-                                                                                   converter="entityConverter"
-                                                                                   value="#{productoController.tipoProducto}">
-                                                                        <f:selectItem itemLabel="  --  Seleccione  --" itemValue="#{null}"/>
-                                                                        <f:selectItems value="#{productoController.tipos}"
-                                                                                       itemLabel="#{tipos.nombre}"
-                                                                                       var="tipos" itemValue="#{tipos}"/>  
-                                                                  </h:selectOneMenu>
+                                            <p:inputText id="precioV" class="form-control" value="#{productoController.producto.precioVenta}" required="true" requiredMessage="Campo Requerido"/> 
 
-                                                                  <p:message for="tipoP" style="padding-left: 10px;"/>
+                                            <p:message for="precioV" style="padding-left: 10px;"/>
 
-                                                                  <p:outputLabel/><p:outputLabel/><p:outputLabel/>
+                                            <p:outputLabel/><p:outputLabel/><p:outputLabel/>    
 
-                                                                  <p:outputLabel for="stockM" value="Cantidad mínima:"/>
+                                            <p:outputLabel for="descripcion" value="Descripción:" />
 
-                                                                  <p:inputText id="stockM" class="form-control" value="#{productoController.producto.stockMinimo}" required="true" requiredMessage="Campo Requerido"/> 
+                                            <p:inputText id="descripcion" class="form-control" value="#{productoController.producto.descripcion}" required="true" requiredMessage="Campo Requerido"/> 
 
-                                                                  <p:message for="stockM" style="padding-left: 10px;"/>
+                                            <p:message for="descripcion" style="padding-left: 10px;"/>
 
-                                                                  <p:outputLabel/><p:outputLabel/><p:outputLabel/>    
+                                            <p:outputLabel/><p:outputLabel/><p:outputLabel/>    
 
-                                                                  <p:outputLabel for="precioV" value="Precio de Venta:" />
+                                        </h:panelGrid>
+                                    </div>
+                                </b:panel><!--Aqui termina el primer panel-->
 
-                                                                  <p:inputText id="precioV" class="form-control" value="#{productoController.producto.precioVenta}" required="true" requiredMessage="Campo Requerido"/> 
+                                <b:column col-md="5"></b:column>
+                                <b:column col-md="3">
 
-                                                                  <p:message for="precioV" style="padding-left: 10px;"/>
+                                    <b:commandButton id="btnRegistrarP" update=":frmMostrar,grid,growlR" actionListener="#{productoController.registrar()}" value="Registrar" class="form-control" 
+                                                     style="background-color:#D2D4D6;color: black;border-color: black;width:80%" 
+                                                     action="ProductosAdm.xhtml?faces-redirect=true"/>
+                                </b:column>
+                            </div>
+                            <b:column col-lg="2"></b:column>
+                        </b:row>
 
-                                                                  <p:outputLabel/><p:outputLabel/><p:outputLabel/>    
+                    </h:form>
+                    <f:facet name="footer">
+                        <b:button value="Cerrar" dismiss="modal" />
+                    </f:facet>
+                </b:modal>
 
-                                                                  <p:outputLabel for="descripcion" value="Descripción:" />
 
-                                                                  <p:inputText id="descripcion" class="form-control" value="#{productoController.producto.descripcion}" required="true" requiredMessage="Campo Requerido"/> 
+                <b:modal id="modalModificar" title="Modificar Producto" styleClass="modalPseudoClass" style="text-align: center" size="modal-lg">
+                    <p:growl id="growlM" autoUpdate="false" severity="info, fatal" showSummary="true" showDetail="true"/>
+                    <h:form id="frmModificar">
 
-                                                                  <p:message for="descripcion" style="padding-left: 10px;"/>
+                        <b:row>
+                            <div class="col-lg-12" align="center">
+                                <b:panel look="primary" collapsible="false" style="width: 75%;border-color: black;text-align: center">
+                                    <f:facet name="heading">
+                                        <h4>Datos del Producto</h4>
+                                    </f:facet>
+                                    <div class="panel-body" align="center" >
+                                        <h:panelGrid id="grid" columns="3" cellpadding="5" style="text-align:  center">
 
-                                                                  <p:outputLabel/><p:outputLabel/><p:outputLabel/>    
+                                            <p:outputLabel for="nombreP" value="Nombre del producto" />
 
-                                                            </h:panelGrid>
-                                                      </div>
-                                                </b:panel><!--Aqui termina el primer panel-->
+                                            <p:inputText id="nombreP" class="form-control" value="#{productoController.producto.nombre_producto}" required="true" requiredMessage="Campo Requerido"/> 
 
-                                                <b:column col-md="5"></b:column>
-                                                <b:column col-md="3">
+                                            <p:message for="nombreP" style="padding-left: 10px;"/>
 
-                                                      <b:commandButton id="btnRegistrarP" update=":frmMostrar,grid,growlR" actionListener="#{productoController.registrar()}" value="Registrar" class="form-control" 
-                                                                       style="background-color:#D2D4D6;color: black;border-color: black;width:80%" 
-                                                                       action="ProductosAdm.xhtml?faces-redirect=true"/>
-                                                </b:column>
-                                          </div>
-                                          <b:column col-lg="2"></b:column>
-                                    </b:row>
+                                            <p:outputLabel/><p:outputLabel/><p:outputLabel/>
 
-                              </h:form>
-                              <f:facet name="footer">
-                                    <b:button value="Cerrar" dismiss="modal" />
-                              </f:facet>
-                        </b:modal>
+                                            <p:outputLabel for="tipoP" value="Tipo de producto:"  />
 
+                                            <h:selectOneMenu id="tipoP" class="form-control"
+                                                             required="true" requiredMessage="Campo Requerida"
+                                                             converter="entityConverter"
+                                                             value="#{productoController.tipoProducto}">
+                                                <f:selectItem itemLabel="----Seleccione----" noSelectionOption="true"/>
+                                                <f:selectItems value="#{productoController.tipos}"
+                                                               itemLabel="#{tipos.nombre}"
+                                                               var="tipos" itemValue="#{tipos}"/>  
+                                            </h:selectOneMenu>
 
-                        <b:modal id="modalModificar" title="Modificar Producto" styleClass="modalPseudoClass" style="text-align: center" size="modal-lg">
-                              <p:growl id="growlM" autoUpdate="false" severity="info, fatal" showSummary="true" showDetail="true"/>
-                              <h:form id="frmModificar">
+                                            <p:message for="tipoP" style="padding-left: 10px;"/>
 
-                                    <b:row>
-                                          <div class="col-lg-12" align="center">
-                                                <b:panel look="primary" collapsible="false" style="width: 75%;border-color: black;text-align: center">
-                                                      <f:facet name="heading">
-                                                            <h4>Datos del Producto</h4>
-                                                      </f:facet>
-                                                      <div class="panel-body" align="center" >
-                                                            <h:panelGrid id="grid" columns="3" cellpadding="5" style="text-align:  center">
+                                            <p:outputLabel/><p:outputLabel/><p:outputLabel/>
 
-                                                                  <p:outputLabel for="nombreP" value="Nombre del producto" />
+                                            <p:outputLabel for="stockM" value="Cantidad mínima:"/>
 
-                                                                  <p:inputText id="nombreP" class="form-control" value="#{productoController.producto.nombre_producto}" required="true" requiredMessage="Campo Requerido"/> 
+                                            <p:inputText id="stockM" class="form-control" value="#{productoController.producto.stockMinimo}" required="true" requiredMessage="Campo Requerido"/> 
 
-                                                                  <p:message for="nombreP" style="padding-left: 10px;"/>
+                                            <p:message for="stockM" style="padding-left: 10px;"/>
 
-                                                                  <p:outputLabel/><p:outputLabel/><p:outputLabel/>
+                                            <p:outputLabel/><p:outputLabel/><p:outputLabel/>    
 
-                                                                  <p:outputLabel for="tipoP" value="Tipo de producto:"  />
+                                            <p:outputLabel for="precioV" value="Precio de Venta:" />
 
-                                                                  <h:selectOneMenu id="tipoP" class="form-control"
-                                                                                   required="true" requiredMessage="Campo Requerida"
-                                                                                   converter="entityConverter"
-                                                                                   value="#{productoController.tipoProducto}">
-                                                                        <f:selectItem itemLabel="  --  Seleccione  --" itemValue="#{null}"/>
-                                                                        <f:selectItems value="#{productoController.tipos}"
-                                                                                       itemLabel="#{tipos.nombre}"
-                                                                                       var="tipos" itemValue="#{tipos}"/>  
-                                                                  </h:selectOneMenu>
+                                            <p:inputText id="precioV" class="form-control" value="#{productoController.producto.precioVenta}" required="true" requiredMessage="Campo Requerido"/> 
 
-                                                                  <p:message for="tipoP" style="padding-left: 10px;"/>
+                                            <p:message for="precioV" style="padding-left: 10px;"/>
 
-                                                                  <p:outputLabel/><p:outputLabel/><p:outputLabel/>
+                                            <p:outputLabel/><p:outputLabel/><p:outputLabel/>    
 
-                                                                  <p:outputLabel for="stockM" value="Cantidad mínima:"/>
+                                            <p:outputLabel for="descripcion" value="Descripción:" />
 
-                                                                  <p:inputText id="stockM" class="form-control" value="#{productoController.producto.stockMinimo}" required="true" requiredMessage="Campo Requerido"/> 
+                                            <p:inputText id="descripcion" class="form-control" value="#{productoController.producto.descripcion}" required="true" requiredMessage="Campo Requerido"/> 
 
-                                                                  <p:message for="stockM" style="padding-left: 10px;"/>
+                                            <p:message for="descripcion" style="padding-left: 10px;"/>
 
-                                                                  <p:outputLabel/><p:outputLabel/><p:outputLabel/>    
 
-                                                                  <p:outputLabel for="precioV" value="Precio de Venta:" />
 
-                                                                  <p:inputText id="precioV" class="form-control" value="#{productoController.producto.precioVenta}" required="true" requiredMessage="Campo Requerido"/> 
+                                        </h:panelGrid>
+                                    </div>
+                                </b:panel><!--Aqui termina el primer panel-->
 
-                                                                  <p:message for="precioV" style="padding-left: 10px;"/>
+                                <b:column col-md="5"></b:column>
+                                <b:column col-md="3">
 
-                                                                  <p:outputLabel/><p:outputLabel/><p:outputLabel/>    
+                                    <b:commandButton id="btnModificarP" update=":frmMostrar,grid,growlM" actionListener="#{productoController.modificar()}" value="Modificar" class="form-control" 
+                                                     style="background-color:#D2D4D6;color: black;border-color: black;width:80%" 
+                                                     action="ProductosAdm.xhtml?faces-redirect=true"/>
+                                </b:column>
+                            </div>
+                            <b:column col-lg="2"></b:column>
+                        </b:row>
 
-                                                                  <p:outputLabel for="descripcion" value="Descripción:" />
+                    </h:form>
+                    <f:facet name="footer">
+                        <b:button value="Cerrar" dismiss="modal" />
+                    </f:facet>
+                </b:modal>
 
-                                                                  <p:inputText id="descripcion" class="form-control" value="#{productoController.producto.descripcion}" required="true" requiredMessage="Campo Requerido"/> 
 
-                                                                  <p:message for="descripcion" style="padding-left: 10px;"/>
 
+            </ui:define>
 
+        </ui:composition>
 
-                                                            </h:panelGrid>
-                                                      </div>
-                                                </b:panel><!--Aqui termina el primer panel-->
-
-                                                <b:column col-md="5"></b:column>
-                                                <b:column col-md="3">
-
-                                                      <b:commandButton id="btnModificarP" update=":frmMostrar,grid,growlM" actionListener="#{productoController.modificar()}" value="Modificar" class="form-control" 
-                                                                       style="background-color:#D2D4D6;color: black;border-color: black;width:80%" 
-                                                                       action="ProductosAdm.xhtml?faces-redirect=true"/>
-                                                </b:column>
-                                          </div>
-                                          <b:column col-lg="2"></b:column>
-                                    </b:row>
-
-                              </h:form>
-                              <f:facet name="footer">
-                                    <b:button value="Cerrar" dismiss="modal" />
-                              </f:facet>
-                        </b:modal>
-
-
-
-                  </ui:define>
-
-            </ui:composition>
-
-      </body>
+    </body>
 </html>
