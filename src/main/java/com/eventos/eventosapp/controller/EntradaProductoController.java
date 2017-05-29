@@ -14,6 +14,7 @@ import com.eventos.eventosapp.model.DetalleFactura;
 import com.eventos.eventosapp.model.Factura;
 import com.eventos.eventosapp.model.Producto;
 import com.eventos.eventosapp.model.Proveedor;
+import com.eventos.eventosapp.model.TipoProducto;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -40,6 +41,7 @@ public class EntradaProductoController implements Serializable {
       private Factura factura;
       private BigDecimal precioUnitario;
       private DetalleFactura detalleFactura;
+      private TipoProducto tipoProducto;
       @EJB
       private DetalleFacturaFacadeLocal detalleEJB;
       private BigDecimal totalDetalle;
@@ -242,4 +244,13 @@ public class EntradaProductoController implements Serializable {
             } catch (Exception e) {
             }
       }
+
+      public TipoProducto getTipoProducto() {
+            return tipoProducto;
+      }
+
+      public void setTipoProducto(TipoProducto tipoProducto) {
+            this.tipoProducto = tipoProducto;
+      }
+      
 }

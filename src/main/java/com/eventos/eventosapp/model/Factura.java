@@ -33,7 +33,7 @@ public class Factura implements Serializable {
       private int idFactura;
       
       @ManyToOne
-      @JoinColumn(name = "idProveedor", nullable = false)
+      @JoinColumn(name = "idProveedor", referencedColumnName = "idProveedor")
       private Proveedor proveedor;
       
       @Column(name = "numeroFactura")
