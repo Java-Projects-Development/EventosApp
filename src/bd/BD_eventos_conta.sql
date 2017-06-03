@@ -36,7 +36,7 @@ CREATE TABLE producto (
   idProveedor int AUTO_INCREMENT primary key,
   proveedor varchar(45) DEFAULT NULL,
   propietario varchar(45) DEFAULT NULL,
-  ncr varchar(8),
+  nrc varchar(8),
   tipo_producto varchar(25),
   forma_entrega varchar(25),
   direccion varchar(200) DEFAULT NULL,
@@ -44,15 +44,15 @@ CREATE TABLE producto (
 
 CREATE TABLE factura (
   idFactura int AUTO_INCREMENT PRIMARY KEY,
+  idProveedor int, FOREIGN KEY (idProveedor) REFERENCES proveedor(idProveedor),
   numeroFactura int(5) DEFAULT NULL,
   totalVenta decimal(10,2) DEFAULT NULL,
   fechaRegistro timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP);
   
-  CREATE TABLE detallefactura (
+CREATE TABLE detallefactura (
   idDetalleFactura int AUTO_INCREMENT primary key,
   idFactura int DEFAULT NULL, foreign key (idFactura) REFERENCES factura(idFactura),
   idProducto int DEFAULT NULL, foreign key (idProducto) REFERENCES producto(idProducto),
-  idProveedor int DEFAULT NULL, foreign key (idProveedor) REFERENCES proveedor(idProveedor),
   cantidad double DEFAULT NULL,
   precioUnitario decimal(10,2) DEFAULT NULL,
   totalCompra decimal(10,2) DEFAULT NULL);

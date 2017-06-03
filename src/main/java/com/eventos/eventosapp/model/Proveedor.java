@@ -28,8 +28,8 @@ public class Proveedor implements Serializable {
     private String proveedor;
     @Column(name = "propietario")
     private String propietario;
-    @Column(name = "ncr")
-    private String ncr;
+    @Column(name = "nrc")
+    private String nrc;
     @Column(name = "tipo_producto")
     private String tipo_producto;
     @Column(name = "forma_entrega")
@@ -63,12 +63,12 @@ public class Proveedor implements Serializable {
         this.propietario = propietario;
     }
 
-    public String getNcr() {
-        return ncr;
+    public String getNrc() {
+        return nrc;
     }
 
-    public void setNcr(String ncr) {
-        this.ncr = ncr;
+    public void setNrc(String nrc) {
+        this.nrc = nrc;
     }
 
     public String getTipo_producto() {

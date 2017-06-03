@@ -14,16 +14,16 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
-import javax.inject.Named;
 
 /**
  *
  * @author elgor
  */
-@Named
 @ViewScoped
+@ManagedBean
 public class ProductoController implements Serializable {
 
     @EJB

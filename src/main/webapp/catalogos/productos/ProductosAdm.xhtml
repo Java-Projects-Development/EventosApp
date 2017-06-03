@@ -88,8 +88,9 @@
                                                                itemLabel="#{tipos.nombre}"
                                                                var="tipos" itemValue="#{tipos}"/>  
                                             </h:selectOneMenu>
-
-                                            <p:message for="tipoP" style="padding-left: 10px;"/>
+                                            
+                                            <p:commandButton class="form-control" value="Nuevo" onclick="$('#modalTipo').modal('show');" 
+                                                             style="background-color:#D2D4D6;color: black;border-color: black;margin-left: 10px;" />
 
                                             <p:outputLabel/><p:outputLabel/><p:outputLabel/>
 
@@ -137,8 +138,50 @@
                         <b:button value="Cerrar" dismiss="modal" />
                     </f:facet>
                 </b:modal>
+                
+                <b:modal id="modalTipo" title="Registro de Tipo" style="text-align: center" styleClass="modalPseudoClass" size="modal-lg" >
+                    <p:growl id="growlN" autoUpdate="false" severity="info, fatal" showSummary="true" showDetail="true"/>
+                    <h:form id="frmTipo">
 
+                        <b:row>
+                            <div class="col-lg-12" align="center">
+                                <b:panel look="primary" collapsible="false" style="width: 75%;border-color: black;text-align: center">
+                                    <f:facet name="heading">
+                                        <h4>Datos del Tipo de Producto</h4>
+                                    </f:facet>
+                                    <div class="panel-body" align="center">
+                                        <h:panelGrid id="grid" columns="3" cellpadding="5" style="text-align:  center">
 
+                                            <p:outputLabel for="nombreT" value="Nombre:" />
+
+                                            <p:inputText id="nombreT" class="form-control" value="#{tipoProductoController.tipoProducto.nombre}" required="true" requiredMessage="Campo Requerido"/> 
+
+                                            <p:message for="nombreT" style="padding-left: 10px;"/>
+
+                                            <p:outputLabel/><p:outputLabel/><p:outputLabel/>
+                                        </h:panelGrid>
+                                    </div>
+                                </b:panel><!--Aqui termina el primer panel-->
+
+                                <b:column col-md="5"></b:column>
+                                <b:column col-md="3">
+
+                                    <p:commandButton id="btnRegistrarT" update=":frmCrear:tipoP,growlN" action="#{tipoProductoController.registrar()}" value="Registrar" class="form-control" 
+                                                     style="background-color:#D2D4D6;color: black;border-color: black;width:80%" 
+                                                     onclick="$('#modalTipo').modal('hide');"/>
+                                </b:column>
+                            </div>
+                            <b:column col-lg="2"></b:column>
+                        </b:row>
+
+                    </h:form>
+                    <f:facet name="footer">
+                        <b:button value="Cerrar" dismiss="modal" />
+                    </f:facet>
+                </b:modal>
+                
+                
+                
                 <b:modal id="modalModificar" title="Modificar Producto" styleClass="modalPseudoClass" style="text-align: center" size="modal-lg">
                     <p:growl id="growlM" autoUpdate="false" severity="info, fatal" showSummary="true" showDetail="true"/>
                     <h:form id="frmModificar">
