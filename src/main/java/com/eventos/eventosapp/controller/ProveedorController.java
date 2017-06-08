@@ -3,6 +3,7 @@ package com.eventos.eventosapp.controller;
 
 import com.eventos.eventosapp.ejb.ProveedorFacadeLocal;
 import com.eventos.eventosapp.model.Proveedor;
+import com.eventos.report.ReporteProveedor;
 import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.List;
@@ -92,4 +93,17 @@ public class ProveedorController implements Serializable {
         this.proveedores = proveedores;
     }
 
+    public void verReporte() throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
+
+        //Instancia hacia la clase reporteClientes        
+        ReporteProveedor rProveedor = new ReporteProveedor();
+
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        ServletContext servletContext = (ServletContext) facesContext.getExternalContext().getContext();
+        String ruta = servletContext.getRealPath("/reportes/reporteProveedor.jasper");
+
+        rProveedor.getReporte(ruta);
+        FacesContext.getCurrentInstance().responseComplete();
+    }
+    
 }

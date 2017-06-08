@@ -14,24 +14,24 @@ import com.eventos.eventosapp.model.Factura;
 import com.eventos.eventosapp.model.Producto;
 import com.eventos.eventosapp.model.Proveedor;
 import com.eventos.eventosapp.model.TipoProducto;
+import com.eventos.report.ReporteProveedor;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
-import javax.faces.view.ViewScoped;
-import javax.inject.Named;
+import javax.faces.bean.ViewScoped;
+import javax.servlet.ServletContext;
 import org.primefaces.event.CellEditEvent;
 
-/**
- *
- * @author said
- */
-@Named
+
 @ViewScoped
+@ManagedBean(name = "entradaProductoController")
 public class EntradaProductoController implements Serializable {
 
     private Proveedor proveedorSeleccionado;
@@ -41,9 +41,11 @@ public class EntradaProductoController implements Serializable {
     private BigDecimal precioUnitario;
     private DetalleFactura detalleFactura;
     private TipoProducto tipoProducto;
+    
     @EJB
     private DetalleFacturaFacadeLocal detalleEJB;
     private BigDecimal totalDetalle;
+
 
     @EJB
     private FacturaFacadeLocal facturaEJB;
@@ -55,6 +57,10 @@ public class EntradaProductoController implements Serializable {
     private List<Proveedor> proveedores;
 
     private List<DetalleFactura> listaDetalleFactura;
+    
+    private List<Factura> listaFacturas;
+    
+    
 
     @PostConstruct
     public void init() {
@@ -65,7 +71,7 @@ public class EntradaProductoController implements Serializable {
         proveedores = proveedorEJB.findAll();
         listaDetalleFactura = new ArrayList<>();
         detalleFactura = new DetalleFactura();
-
+        listaFacturas = facturaEJB.findAll();
     }
 
     public void modificar() {
@@ -257,4 +263,39 @@ public class EntradaProductoController implements Serializable {
         this.tipoProducto = tipoProducto;
     }
 
+    public List<Factura> getListaFacturas() {
+        return listaFacturas;
+    }
+
+    public void setListaFacturas(List<Factura> listaFacturas) {
+        this.listaFacturas = listaFacturas;
+    }
+    
+    public void verReporte() throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
+
+        //Instancia hacia la clase reporteClientes        
+        ReporteProveedor rProveedor = new ReporteProveedor();
+
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        ServletContext servletContext = (ServletContext) facesContext.getExternalContext().getContext();
+        String ruta = servletContext.getRealPath("/reportes/facturaCompra.jasper");
+
+        rProveedor.getReporte2(ruta,factura.getNumeroFactura());
+        FacesContext.getCurrentInstance().responseComplete();
+    }
+    
+    public void verReporte1(Factura factura) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
+
+        //Instancia hacia la clase reporteClientes        
+        ReporteProveedor rProveedor = new ReporteProveedor();
+
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        ServletContext servletContext = (ServletContext) facesContext.getExternalContext().getContext();
+        String ruta = servletContext.getRealPath("/reportes/facturaCompra.jasper");
+
+        rProveedor.getReporte2(ruta,factura.getNumeroFactura());
+        FacesContext.getCurrentInstance().responseComplete();
+    }
+    
+    
 }

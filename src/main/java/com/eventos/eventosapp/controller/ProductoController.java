@@ -9,7 +9,9 @@ import com.eventos.eventosapp.ejb.ProductoFacadeLocal;
 import com.eventos.eventosapp.ejb.TipoProductoFacadeLocal;
 import com.eventos.eventosapp.model.Producto;
 import com.eventos.eventosapp.model.TipoProducto;
+import com.eventos.report.ReporteProveedor;
 import java.io.Serializable;
+import java.sql.SQLException;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -17,6 +19,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
+import javax.servlet.ServletContext;
 
 /**
  *
@@ -117,6 +120,17 @@ public class ProductoController implements Serializable {
         this.tipos = tipos;
     }
     
-    
+    public void verReporte() throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
+
+        //Instancia hacia la clase reporteClientes        
+        ReporteProveedor rProveedor = new ReporteProveedor();
+
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        ServletContext servletContext = (ServletContext) facesContext.getExternalContext().getContext();
+        String ruta = servletContext.getRealPath("/reportes/reporteProductos.jasper");
+
+        rProveedor.getReporte(ruta);
+        FacesContext.getCurrentInstance().responseComplete();
+    }
 
 }

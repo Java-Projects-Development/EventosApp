@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:b="http://bootsfaces.net/ui">
+
+    <body>
+
+        <ui:composition template="./../plantillas/mpAdmin.xhtml">
+
+            <ui:define name="content">
+                <b:container>
+                    <h:form>
+                        <p:dataTable id="table" var="factura" value="#{entradaProductoController.listaFacturas}"
+                                     emptyMessage="No hay usuarios en la base de datos"
+                                     paginator="true" rows="5" paginatorPosition="bottom"
+                                     paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks}
+                                     {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     rowsPerPageTemplate="5" reflow="true" resizeMode="expand" rowExpandMode="multiply"  widgetVar="data" style="text-align: center">
+
+                            <f:facet name="header" >
+                                <p:outputPanel style="height: available">
+                                    <h:outputText value="Buscar en todos los campos" style="padding-right: 20px"/>
+                                    <p:inputText  id="globalFilter" onkeyup= "PF('data').filter()" placeholder="Ingrese cualquier palabra o numero"  style="width: 350px"/> 
+                                </p:outputPanel>
+                                <p:separator/>
+                                <BR/>
+
+                            </f:facet>
+
+                            <p:column headerText="Fecha Factura" filterBy="#{factura.fechaRegistro}"  filterMatchMode="contains">
+                                <f:facet name="filter">
+                                    <p:calendar  navigator="true" pattern="dd-MM-yyyy" locale="es">
+
+                                        <p:ajax event="dateSelect" oncomplete="PF('data').filter()" update="table" />
+                                        <p:ajax event="change" process="@this" oncomplete="PF('data').filter()" update="table"/>
+
+                                    </p:calendar>
+                                </f:facet>
+                                <p:outputLabel value="#{factura.fechaRegistro}" >
+                                    <f:convertDateTime pattern="dd-MM-yyyy" />
+                                </p:outputLabel>
+                            </p:column>
+
+
+                            <p:column headerText="Numero de Factura" filterBy="#{factura.numeroFactura}" filterMatchMode="contains">
+                                <p:outputLabel value="#{factura.numeroFactura}"/>
+                            </p:column>
+
+                            <p:column headerText="Proveedor" >
+                                <p:outputLabel value="#{factura.proveedor.proveedor}"/>
+
+                            </p:column>
+
+                            <p:column headerText="Total de Compra de la Factura" >
+                                <p:outputLabel value="#{factura.totalVenta}"/>
+                            </p:column>
+
+                            <p:column headerText="Accion" >
+                                <h:commandButton image="/recursos/imagenes/pdf.png" style="width:50px;height:50px" onclick="this.form.target = '_blank'"  actionListener="#{entradaProductoController.verReporte1(factura)}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </h:form>
+                </b:container>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
